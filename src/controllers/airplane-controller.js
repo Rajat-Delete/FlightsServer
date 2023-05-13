@@ -1,4 +1,6 @@
-const { StatusCode } = require('http-status-codes')
+const { StatusCodes } = require('http-status-codes');
+
+
 const { AirplaneService } = require('../services');
 const { ErrorResponse, SuccesResponse } = require('../utils/common');
 /*
@@ -20,14 +22,17 @@ async function createAirplane(request, response){
         });
         SuccesResponse.data =airplane;
         return response
-        .status(201)
+        .status(StatusCodes.CREATED)
         .json(SuccesResponse);
 
     }catch(error){
-        ErrorResponse.message = 'Successfully created a airplane';
         ErrorResponse.error = error;
+        //Generic code we can add to avoid failures at server end
+        // if(!error.statusCode){
+        //     error.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+        // }
         return response
-        .status(500)
+        .status(error.statusCode)
         .json(ErrorResponse);
 
     }
