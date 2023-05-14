@@ -14,5 +14,8 @@ router.post('/' ,
 //this is technically reffering to /api/v1/airplane which is a get request
 router.get('/',AirplaneController.getAirplanes);
 
+//this is technically reffering to /api/v1/airplane/:id which is a get request
+router.get('/:id', AirplaneController.getAirplane);
+
 
 module.exports = router;

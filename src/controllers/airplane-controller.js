@@ -38,6 +38,11 @@ async function createAirplane(request, response){
     }
 }
 
+/*
+Request is going to be look like 
+GET 
+*/
+
 async function getAirplanes(request,response){
     try{
     const airplanes= await AirplaneService.getAirplanes();
@@ -53,13 +58,38 @@ async function getAirplanes(request,response){
         ErrorResponse.error = error;
         return response
         .status(error.statusCode)
-        .json(error);
+        .json(ErrorResponse);
 
     }
 
 }
+/*
+Request is going to be look like 
+GET 
+*/
+
+async function getAirplane(request,response){
+    try{
+        //If we have to access one parameter we can access like request.params.id
+        const airplane = await AirplaneService.getAirplane(request.params.id);
+        //console.log('airplane>>',airplane);
+        SuccesResponse.data = airplane;
+        return response
+        .status(StatusCodes.OK)
+        .json(SuccesResponse);
+
+    }
+    catch(error){
+        console.log('error>>',error);
+        ErrorResponse.error=error;
+        return response.
+        status(error.statusCode)
+        .json(ErrorResponse);
+    }
+}
 
 module.exports = {
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane
 }
