@@ -17,5 +17,8 @@ router.get('/',AirplaneController.getAirplanes);
 //this is technically reffering to /api/v1/airplane/:id which is a get request
 router.get('/:id', AirplaneController.getAirplane);
 
+//this is technically reffering to /api/v1/airplane/:id which is a delete request
+router.delete('/:id', AirplaneController.destroyAirplane);
+
 
 module.exports = router;

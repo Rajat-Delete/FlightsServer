@@ -88,8 +88,33 @@ async function getAirplane(request,response){
     }
 }
 
+/*
+Request is going to be look like 
+DELETE 
+*/
+async function destroyAirplane(request,response){
+    try{
+        //console.log('code here');
+        const airplane = await AirplaneService.destroyAirplane(request.params.id);
+        //If response comes as 1 while deleting it means , the record was successfully deleted
+        //If response comes as 0 then it means that resource was not able to delete
+        SuccesResponse.data= airplane;
+        console.log('response in controller>>>>',SuccesResponse);
+        return response
+        .status(StatusCodes.OK)
+        .json(SuccesResponse);
+    }
+    catch(error){
+        ErrorResponse.error=error;
+        return response
+        .status(error.statusCode)
+        .json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createAirplane,
     getAirplanes,
-    getAirplane
+    getAirplane,
+    destroyAirplane
 }
