@@ -112,9 +112,37 @@ async function destroyAirplane(request,response){
     }
 }
 
+/*
+Request is going to be look like 
+PATCH 
+*/
+
+async function updateAirplane(request,response){
+    try{
+        //console.log('request>>',request);
+        const airplane = await AirplaneService.updateAirplane({
+            capacity: request.body.capacity
+        }, request.params.id);
+        //console.log('airplane in up service>>',airplane);
+        SuccesResponse.data=airplane;
+        return response
+        .status(StatusCodes.OK)
+        .json(SuccesResponse);
+    }
+    catch(error){
+        ErrorResponse.error = error;
+        return response
+        .status(error.statusCode)
+        .json(ErrorResponse);
+    }
+}
+
+
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }

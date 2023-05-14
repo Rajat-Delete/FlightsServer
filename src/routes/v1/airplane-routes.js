@@ -20,5 +20,7 @@ router.get('/:id', AirplaneController.getAirplane);
 //this is technically reffering to /api/v1/airplane/:id which is a delete request
 router.delete('/:id', AirplaneController.destroyAirplane);
 
+router.patch('/:id', AirplaneController.updateAirplane);
+
 
 module.exports = router;

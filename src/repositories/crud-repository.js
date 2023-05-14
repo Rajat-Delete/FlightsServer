@@ -50,7 +50,13 @@ class CrudRepository{
                 where : {
                     id : id
                 }
-            })
+            });
+            console.log('response in update',response);
+            if(response){
+                console.log('in crud repo');
+                throw new AppError('Not able to find the resource', StatusCodes.NOT_FOUND);
+            }
+            return response;
     }
 
     
