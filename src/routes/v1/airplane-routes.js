@@ -11,4 +11,8 @@ router.post('/' ,
     AirplaneController.createAirplane);
 
 
+//this is technically reffering to /api/v1/airplane which is a get request
+router.get('/',AirplaneController.getAirplanes);
+
+
 module.exports = router;

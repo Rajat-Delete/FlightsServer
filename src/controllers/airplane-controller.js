@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 
 const { AirplaneService } = require('../services');
 const { ErrorResponse, SuccesResponse } = require('../utils/common');
+
 /*
 Request is going to be look like 
 POST {
@@ -11,7 +12,6 @@ POST {
 }
 
 */
-
 async function createAirplane(request, response){
 
     try{
@@ -38,6 +38,28 @@ async function createAirplane(request, response){
     }
 }
 
+async function getAirplanes(request,response){
+    try{
+    const airplanes= await AirplaneService.getAirplanes();
+    //console.log('airplanes in controller>>',airplanes);
+    SuccesResponse.data = airplanes;
+
+    return response.
+    status(StatusCodes.OK)
+    .json(SuccesResponse);
+
+    }
+    catch(error){
+        ErrorResponse.error = error;
+        return response
+        .status(error.statusCode)
+        .json(error);
+
+    }
+
+}
+
 module.exports = {
-    createAirplane
+    createAirplane,
+    getAirplanes
 }

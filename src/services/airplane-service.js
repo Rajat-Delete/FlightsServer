@@ -28,6 +28,20 @@ async function createAirplane(data){
 
 }
 
+async function getAirplanes(){
+    try{
+        const airplanes = await airplaneRepository.getAll();
+        //console.log('airplanes>>',airplanes);
+        return airplanes;
+    }
+    catch(error){
+        //Now since here there is no validation so the error possible here is that we will not be able to connect to DB
+        throw new AppError('Can not fetch data of all airplanes', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 module.exports ={
-    createAirplane
+    createAirplane,
+    getAirplanes
 }
