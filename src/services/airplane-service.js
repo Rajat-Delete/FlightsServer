@@ -15,6 +15,7 @@ async function createAirplane(data){
         if(error.name == 'TypeError'){
             throw new AppError( 'Something went wrong while creating Airplane object', StatusCodes.INTERNAL_SERVER_ERROR);
         }
+        //this error was added on validation of data being send from UI
         if(error.name == 'SequelizeValidationError'){
             let explantion =[];
             error.errors.forEach(error => {
