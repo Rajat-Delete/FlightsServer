@@ -15,7 +15,7 @@ function validateRequest(request, response, next){
         
     }
     if(!request.body.capacity){
-        ErrorResponse.message ='Something went wrong while creating airplane';
+        ErrorResponse.message ='Something went wrong while creating Airplane';
         ErrorResponse.error = new AppError('Explanation : Airplane capacity was not found in incoming request', StatusCodes.BAD_REQUEST);
         return response
         .status(StatusCodes.BAD_REQUEST)
