@@ -5,7 +5,6 @@ const AppError = require("../utils/errors/app-error");
 const cityRepository =  new CityRepository();
 
 async function createCity(data){
-
     try{
         const city = await cityRepository.create(data);
         return city;
@@ -27,9 +26,21 @@ async function createCity(data){
         }
         throw error;
     }
-
 }
 
+async function deleteCity(data){
+    try{
+        const city = await cityRepository.delete(data);
+        return city;
+    }
+    catch(error){
+        //so the possible scenario is that we are not able to find the resource or not connect to DB
+        throw new AppError('Can not find the data of the City', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 module.exports = {
-    createCity
+    createCity,
+    deleteCity
 }
