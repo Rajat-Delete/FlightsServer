@@ -52,7 +52,7 @@ class CrudRepository{
                 }
             });
             console.log('response in update',response);
-            if(response){
+            if(response[ 0 ] == 0 ){
                 console.log('in crud repo');
                 throw new AppError('Not able to find the resource', StatusCodes.NOT_FOUND);
             }

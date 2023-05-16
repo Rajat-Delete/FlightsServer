@@ -77,7 +77,7 @@ async function destroyAirplane(id){
     }
 } 
 
-async function updateAirplane(data , id){
+async function updateAirplane(id, data){
     try{
         console.log('data>>',data);
         console.log('id>>', id);
@@ -90,6 +90,7 @@ async function updateAirplane(data , id){
             console.log('code inside update');
             throw new AppError('The Airplane you reuested to udpate is not found',error.statusCode);
         }
+        //this error should be thrown for server side issue like DB not connecting and other scenario
         throw new AppError('Can not able to fetch the airplane', StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }

@@ -120,9 +120,10 @@ PATCH
 async function updateAirplane(request,response){
     try{
         //console.log('request>>',request);
-        const airplane = await AirplaneService.updateAirplane({
+        const airplane = await AirplaneService.updateAirplane(
+           request.params.id, {
             capacity: request.body.capacity
-        }, request.params.id);
+        });
         //console.log('airplane in up service>>',airplane);
         SuccesResponse.data=airplane;
         return response
