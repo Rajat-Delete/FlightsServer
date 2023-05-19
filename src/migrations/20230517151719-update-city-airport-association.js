@@ -19,4 +19,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
      await queryInterface.removeConstraint('Airports', 'city_fkey_constraint');
   }
+
+  // query to check if constraint has been applied or not
+  // select * from Information_schema.key_column_usage where table_name = 'airports' and constraint_schema='flights'
 };
