@@ -17,13 +17,13 @@ app.listen(ServerConfig.PORT, async (req,res) =>{
     Logger.info("Successfully Started the Server",{})
 
     //bad code alert
-    const { Airport , City } = require('./models');
+    // const { Airport , City } = require('./models');
 
-    //await City.create({name : 'Gujrat'});
-    const gujrat = await City.findByPk(13);
-    console.log(gujrat);
-    const airportsInGujrat = await gujrat.getAirports();
-    console.log(airportsInGujrat);
+    // //await City.create({name : 'Gujrat'});
+    // const gujrat = await City.findByPk(13);
+    // console.log(gujrat);
+    // const airportsInGujrat = await gujrat.getAirports();
+    // console.log(airportsInGujrat);
     //await gujrat.createAirport({name : 'Rajkot Airport' , code : 'GUJ'});
     //await gujrat.createAirport({name : 'Ahmedabad Airport', code : 'AMD'})
 
