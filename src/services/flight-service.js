@@ -87,7 +87,28 @@ async function getAllFlights(query){
 }
 
 
+async function getFlight(id){
+     try{
+    const flight = await flightRepository.get(id);
+    //console.log('flight>>',flight);
+    return flight;
+    }
+    catch(error){
+        //console.log('code here');
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError('The Flight You requested is not found', error.statusCode);
+        }
+
+        //Here also there is no validation on the data , since it is a get request so possible error is we are unable to find that
+        //record or we are not able to connect to DB
+        throw new AppError('Can not fetch data of the flight', StatusCodes.INTERNAL_SERVER_ERROR);
+
+    }
+}
+
 module.exports ={
     createFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight
+     
 }
