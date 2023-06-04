@@ -2,6 +2,8 @@ const { Sequelize } = require('sequelize');
 const CrudRepository = require("./crud-repository");
 const { flight , Airplane , Airport, City } = require('../models');
 
+const db = require('../models');
+const { updateFlightSeats} =require('./queries');
 class FlightRepository extends CrudRepository{
 
     constructor(){
@@ -46,6 +48,24 @@ class FlightRepository extends CrudRepository{
         });
         console.log('flights in repo>>',flights);
         return flights;
+    }
+
+
+    async updateRemainingSeats(flightId , seats , dec = true){
+        
+        //Putting row level lock before updating the record
+        await db.sequelize.query(updateFlightSeats(flightId)); 
+        
+        //naming it as flightdetail as flight overlaps with model name 
+        const flightdetail = await flight.findByPk(flightId);
+       // console.log(typeof dec);
+        if(parseInt(dec)){
+            const response = await flightdetail.decrement('totalSeats' , {by : seats});
+            return response;
+        }else{
+            const response = await flightdetail.increment('totalSeats' , {by : seats});
+            return response;
+        }
     }
     
 }

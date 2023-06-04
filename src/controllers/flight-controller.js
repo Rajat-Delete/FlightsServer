@@ -85,11 +85,34 @@ async function getFlight(request,response){
     }
 }
 
+async function updateSeats(request,response){
+    try{
+        const res = await FlightService.updateRemainingSeats({
+            flightId : request.params.id,
+            seats : request.body.seats,
+            dec : request.body.rec,
+        })
+        SuccesResponse.data= res;
+        return response
+        .status(StatusCodes.OK)
+        .json(SuccesResponse);
+    }
+    catch(error){
+        ErrorResponse.error = error;
+        ErrorResponse.status = error.statusCode;
+        return response
+        .status(ErrorResponse.error)
+        .json(ErrorResponse);
+
+    }
+}
+
 
 
 
 module.exports = {
     createFlight,
     getAllFlights,
-    getFlight
+    getFlight,
+    updateSeats
 }
