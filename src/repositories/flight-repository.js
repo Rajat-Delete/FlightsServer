@@ -58,11 +58,14 @@ class FlightRepository extends CrudRepository{
         
         //naming it as flightdetail as flight overlaps with model name 
         const flightdetail = await flight.findByPk(flightId);
-       // console.log(typeof dec);
-        if(+dec){
+        // console.log(typeof dec , +dec);
+       //console.log(typeof Boolean(dec), Boolean(dec));
+        if(dec == 'true'){
+            console.log('Inside true');
             const response = await flightdetail.decrement('totalSeats' , {by : seats});
             return response;
         }else{
+            console.log('Inside else');
             const response = await flightdetail.increment('totalSeats' , {by : seats});
             return response;
         }
