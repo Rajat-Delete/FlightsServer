@@ -53,22 +53,32 @@ class FlightRepository extends CrudRepository{
 
     async updateRemainingSeats(flightId , seats , dec = true){
         
-        //Putting row level lock before updating the record
+        const transaction = await db.sequelize.transaction();
+        try {
+             //Putting row level lock before updating the record
         await db.sequelize.query(updateFlightSeats(flightId)); 
         
         //naming it as flightdetail as flight overlaps with model name 
         const flightdetail = await flight.findByPk(flightId);
         // console.log(typeof dec , +dec);
        //console.log(typeof Boolean(dec), Boolean(dec));
-        if(dec == 'true'){
+       console.log(dec);
+        if(+dec){
             console.log('Inside true');
-            const response = await flightdetail.decrement('totalSeats' , {by : seats});
-            return response;
+            await flightdetail.decrement('totalSeats' , {by : seats});
         }else{
             console.log('Inside else');
-            const response = await flightdetail.increment('totalSeats' , {by : seats});
-            return response;
+            await flightdetail.increment('totalSeats' , {by : seats});
         }
+        //If there are no errors then we are committing the updated flight details
+        await transaction.commit();
+        return flightdetail;
+        } catch (error) {
+            //we are rolling back the details if transaction has any issues.
+            await transaction.rollback();
+            throw error;
+        }
+       
     }
     
 }
