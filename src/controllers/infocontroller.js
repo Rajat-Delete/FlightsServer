@@ -4,7 +4,7 @@ const info = (request, response)=> {
 
      response.json({
         "Success" : "True",
-        "Message" : "The API is now redirecting to homepage API",
+        "Message" : "The API is now Live in Flight Service",
         "data" : {},
         "error" : {} 
    });

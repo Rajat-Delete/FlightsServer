@@ -8,8 +8,9 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
-
+console.log('code here');
 app.use('/api', apiroutes);
+app.use('/flightsService/api' , apiroutes);
 
 
 app.listen(ServerConfig.PORT, (req,res) =>{
